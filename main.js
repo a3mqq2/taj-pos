@@ -11,7 +11,8 @@ function createWindow() {
     icon: __dirname + '/assets/logo.ico',
     webPreferences: {
       nodeIntegration: false,
-      contextIsolation: true
+      contextIsolation: true,
+      devTools: true
     }
   })
 
@@ -19,8 +20,10 @@ function createWindow() {
 
   mainWindow.setMenu(null)
 
+  mainWindow.webContents.openDevTools()
+
   mainWindow.webContents.on('before-input-event', (event, input) => {
-    if (input.key === 'F5' || (input.control && input.key === 'r')) {
+    if (input.key === 'F5' || (input.control && input.key.toLowerCase() === 'r')) {
       event.preventDefault()
     }
   })
@@ -28,7 +31,6 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow()
-  globalShortcut.register('CommandOrControl+Shift+I', () => {})
 })
 
 app.on('window-all-closed', () => {
