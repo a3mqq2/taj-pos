@@ -7,6 +7,6 @@
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^latest"
+    "electron": "latest"
   }
 }
