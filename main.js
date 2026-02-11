@@ -16,7 +16,7 @@ function createWindow() {
     }
   })
 
-  mainWindow.loadURL('http://192.168.1.100:8000/taj-sultan/public')
+  mainWindow.loadURL('http://192.168.1.100/taj-sultan/public')
 
   mainWindow.setMenu(null)
 
