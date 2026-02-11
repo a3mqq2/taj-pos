@@ -1,5 +1,4 @@
-const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron')
-const path = require('path')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 
 let mainWindow
 
@@ -9,12 +8,11 @@ function createWindow() {
     height: 800,
     fullscreen: true,
     autoHideMenuBar: true,
-    icon: path.join(__dirname, 'assets/logo.ico'),
+    icon: __dirname + '/assets/logo.ico',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: false,
-      preload: path.join(__dirname, 'preload.js')
+      devTools: false
     }
   })
 
@@ -32,15 +30,6 @@ function createWindow() {
     }
   })
 }
-
-ipcMain.handle('silent-print', async () => {
-  if (mainWindow) {
-    mainWindow.webContents.print({
-      silent: true,
-      printBackground: true
-    })
-  }
-})
 
 app.whenReady().then(() => {
   createWindow()
