@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 
 let mainWindow
 
@@ -8,14 +8,14 @@ function createWindow() {
     height: 800,
     fullscreen: true,
     autoHideMenuBar: true,
+    icon: __dirname + '/assets/logo.ico',
     webPreferences: {
       nodeIntegration: false,
-      contextIsolation: true,
-      preload: __dirname + '/preload.js'
+      contextIsolation: true
     }
   })
 
-  mainWindow.loadURL('http://taj-sultan.test')
+  mainWindow.loadURL('http://192.168.1.100:8000')
 
   mainWindow.setMenu(null)
 
@@ -33,25 +33,4 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
-})
-
-ipcMain.handle('print-receipt', async (event, url) => {
-  const printWindow = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      nodeIntegration: false
-    }
-  })
-
-  await printWindow.loadURL(url)
-
-  printWindow.webContents.print(
-    {
-      silent: true,
-      printBackground: true
-    },
-    () => {
-      printWindow.close()
-    }
-  )
 })

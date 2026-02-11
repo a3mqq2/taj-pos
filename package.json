@@ -1,26 +1,12 @@
 {
   "name": "pos-electron",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "electron": "^40.2.1"
-  },
-  "build": {
-    "win": {
-      "target": "nsis"
-    },
-    "nsis": {
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
-    }
+    "electron": "^latest"
   }
-
 }
