@@ -1,4 +1,5 @@
-const { app, BrowserWindow, globalShortcut } = require('electron')
+const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron')
+const path = require('path')
 
 let mainWindow
 
@@ -8,11 +9,12 @@ function createWindow() {
     height: 800,
     fullscreen: true,
     autoHideMenuBar: true,
-    icon: __dirname + '/assets/logo.ico',
+    icon: path.join(__dirname, 'assets/logo.ico'),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: true
+      devTools: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -20,17 +22,31 @@ function createWindow() {
 
   mainWindow.setMenu(null)
 
-  mainWindow.webContents.openDevTools()
-
   mainWindow.webContents.on('before-input-event', (event, input) => {
-    if (input.key === 'F5' || (input.control && input.key.toLowerCase() === 'r')) {
+    if (
+      input.key === 'F12' ||
+      (input.control && input.shift && input.key.toLowerCase() === 'i') ||
+      (input.control && input.key.toLowerCase() === 'j')
+    ) {
       event.preventDefault()
     }
   })
 }
 
+ipcMain.handle('silent-print', async () => {
+  if (mainWindow) {
+    mainWindow.webContents.print({
+      silent: true,
+      printBackground: true
+    })
+  }
+})
+
 app.whenReady().then(() => {
   createWindow()
+
+  globalShortcut.register('CommandOrControl+Shift+I', () => {})
+  globalShortcut.register('F12', () => {})
 })
 
 app.on('window-all-closed', () => {
