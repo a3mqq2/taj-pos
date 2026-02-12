@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 const path = require('path')
 
 let mainWindow
@@ -32,15 +32,6 @@ function createWindow() {
     }
   })
 }
-
-ipcMain.handle('silent-print', async () => {
-  if (mainWindow) {
-    mainWindow.webContents.print({
-      silent: true,
-      printBackground: true
-    })
-  }
-})
 
 app.whenReady().then(() => {
   createWindow()
