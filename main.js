@@ -7,7 +7,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
-    fullscreen: true,
+    show: false,
     autoHideMenuBar: true,
     icon: path.join(__dirname, 'assets/logo.ico'),
     webPreferences: {
@@ -17,6 +17,9 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  mainWindow.maximize()
+  mainWindow.show()
 
   mainWindow.loadURL('http://192.168.1.100/taj-sultan/public')
 
