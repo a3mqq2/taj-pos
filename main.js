@@ -21,7 +21,7 @@ function createWindow() {
   mainWindow.maximize()
   mainWindow.show()
 
-  mainWindow.loadURL('http://192.168.1.100/taj-sultan/public')
+  mainWindow.loadURL('http://taj-sultan.com')
 
   mainWindow.setMenu(null)
 
